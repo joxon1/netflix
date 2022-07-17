@@ -13,15 +13,18 @@ const Login = () => {
   const handleLogin = (email, password) => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, email, password).then(({ user }) => {
-      console.log(user);
-      dispatch(
-        setUser({
-          email: user.email,
-          id: user.uid,
-          token: user.accessToken,
-        })
-      );
-      navigate("/");
+      try {
+        dispatch(
+          setUser({
+            email: user.email,
+            id: user.uid,
+            token: user.accessToken,
+          })
+        );
+        navigate("/");
+      } catch {
+        console.error();
+      }
     });
   };
 
@@ -37,10 +40,10 @@ const Login = () => {
         <div className="fixed w-full px-4 py-24 z-50">
           <div className="max-w-[450px] h-[600px] mx-auto bg-black/75 rounded-xl text-white">
             <div className="max-w-[320px] mx-auto py-16">
-              <h1 className="text-3xl font-bold">Sign Up</h1>
+              <h1 className="text-3xl font-bold">Sign In</h1>
               <Form title="Sign In" handleClick={handleLogin} />
               <p className="py-4">
-                or
+                or 
                 <Link to="/signup">
                   <button className="bg-red-600 py-1 px-6 mx-3 my-6 rounded font-bold">
                     Register

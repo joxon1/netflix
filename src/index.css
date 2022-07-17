@@ -8,3 +8,15 @@ body {
   background-color: #000;
   font-family: "Lato", sans-serif;
 }
+@media (max-width:768px){
+  .navbar_logo{
+    font-size:1rem;
+  }
+  .navbar_log_out{
+    padding: 3px;
+    font-size:0.9rem;
+  }
+  .main_container{
+    top: 30%;
+  }
+}

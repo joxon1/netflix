@@ -21,7 +21,7 @@ const SignUp = () => {
           token: user.accessToken,
         })
       );
-      navigate("/login");
+      navigate("/");
     });
   };
 

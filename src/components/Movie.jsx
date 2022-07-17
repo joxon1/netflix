@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
-
+import axios from "axios";
 const Movie = ({ item }) => {
   const [like, setLike] = useState(false);
 
