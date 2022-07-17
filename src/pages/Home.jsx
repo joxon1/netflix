@@ -6,7 +6,7 @@ import { useAuth } from "../hooks/useAuth";
 import Client from "./Client";
 
 const Home = () => {
-  const { isAuth, email } = useAuth();
+  const { isAuth } = useAuth();
   return isAuth ? (
     <>
       <Main />
