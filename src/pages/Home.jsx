@@ -3,6 +3,7 @@ import Main from "../components/Main";
 import Row from "../components/Row";
 import requests from "../Requests";
 import { useAuth } from "../hooks/useAuth";
+import Client from "./Client";
 
 const Home = () => {
   const { isAuth, email } = useAuth();
@@ -15,7 +16,7 @@ const Home = () => {
       <Row rowID="4" title="Top Rated" fetchURL={requests.requestTopRated} />
     </>
   ) : (
-    <div className="text-white">registratsiyadan ot</div>
+    <Client />
   );
 };
 
