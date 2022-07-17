@@ -1,8 +1,30 @@
 import React from "react";
 import bg from "../assets/bg.jpg";
 import Form from "../components/Form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { setUser } from "../redux/slice/userSlice";
+import { useDispatch } from "react-redux/es/exports";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 const SignUp = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleRegister = (email, password) => {
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, email, password).then(({ user }) => {
+      console.log(user);
+      dispatch(
+        setUser({
+          email: user.email,
+          id: user.uid,
+          token: user.accessToken,
+        })
+      );
+      navigate("/login");
+    });
+  };
+
   return (
     <>
       <div className="w-full h-full">
@@ -16,7 +38,7 @@ const SignUp = () => {
           <div className="max-w-[450px] h-[600px] mx-auto bg-black/75 rounded-xl text-white">
             <div className="max-w-[320px] mx-auto py-16">
               <h1 className="text-3xl font-bold">Sign Up</h1>
-              <Form title="Sign Up" />
+              <Form title="Sign Up" handleClick={handleRegister} />
               <p className="py-4">
                 Already have an account?
                 <Link to="/login">

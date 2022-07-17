@@ -1,8 +1,30 @@
 import React from "react";
 import Form from "../components/Form";
 import bg from "../assets/bg.jpg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/slice/userSlice";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
 const Login = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogin = (email, password) => {
+    const auth = getAuth();
+    signInWithEmailAndPassword(auth, email, password).then(({ user }) => {
+      console.log(user);
+      dispatch(
+        setUser({
+          email: user.email,
+          id: user.uid,
+          token: user.accessToken,
+        })
+      );
+      navigate("/");
+    });
+  };
+
   return (
     <>
       <div className="w-full h-full">
@@ -16,7 +38,7 @@ const Login = () => {
           <div className="max-w-[450px] h-[600px] mx-auto bg-black/75 rounded-xl text-white">
             <div className="max-w-[320px] mx-auto py-16">
               <h1 className="text-3xl font-bold">Sign Up</h1>
-              <Form title="Sign In" />
+              <Form title="Sign In" handleClick={handleLogin} />
               <p className="py-4">
                 or
                 <Link to="/signup">
